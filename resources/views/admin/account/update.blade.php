@@ -1,0 +1,77 @@
+@extends('admin.layout.main')
+
+@section('body')
+
+  <!-- MAIN CONTENT-->
+  <div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="col-lg-10 offset-1 ">
+                <div class="card">
+                     <div class="card-body row">
+                        <div class="card-title col-12">
+                            <h3 class="text-center title-2 mt-2">Edit Admin Account</h3>
+                            <hr class="mt-3">
+                        </div>
+                        <form action="{{route('readyupdate#account')}}" method="post" novalidate="novalidate" enctype="multipart/form-data">
+                            @csrf
+                          <div class="row justify-content-center ">
+                            <div class="col-4">
+                                <div class="img">
+                                    @if(Auth::user()->image ==null)
+                                    <img src="{{asset('img/default_user.png')}}" class="rounded-pill" style="width:250px;" alt="">
+                                    @else                            
+                                    <img src="{{asset('storage/'.Auth::user()->image)}}" style="width:250px;" alt="John Doe" />
+                                    @endif
+                                </div>                   
+                                <div class="my-3">
+                                    <a href="#" style="width:100%" ><button class="btn btn-dark text-white col-12"><i class="fa-solid fa-pen-nib me-3"></i>Update</button></a>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <div class="form-group">
+                                    <label class="control-label mb-1 mt-2 mb-1" >Name</label>
+                                    <input id="cc-pament" name="name" type="name" value="{{old('name',$data->name)}}"  class="form-control" aria-required="true" aria-invalid="false" disabled >
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label mb-1 mt-2 mb-1">Role</label>
+                                    <select name="role" class="form-control" id="">
+                                        <option value="admin" @if ($data->role == 'admin') selected @endif>admin</option>
+                                        <option value="user" @if ($data->role == 'user') selected @endif>user</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label mb-1 mt-2 mb-1">Email</label>
+                                    <input id="cc-pament" name="email" type="email" value="{{old('email',$data->email)}}" class="form-control" aria-required="true" aria-invalid="false" disabled >
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" name="update_id" value="{{$data->id}}">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label mb-1 mt-2 mb-1">Phone</label>
+                                    <input id="cc-pament" name="phone" type="phone"  value="{{old('phone',$data->phone)}}" class="form-control" aria-required="true" aria-invalid="false" disabled >
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Gender</label>
+                                    <select class="form-control @error('gender') is-invalid   @enderror"  name="gender" id="" disabled>
+                                    <option value="male" @if ($data->gender == 'male') selected @endif>Male</option>
+                                    <option value="female"  @if ($data->gender == 'female') selected @endif>Female</option>
+                                    </select>
+                                  </div>
+                                <div class="form-group">
+                                    <label class="control-label mb-1 mt-2 mb-1">Address</label>
+                                    <input id="cc-pament" name="address" value="{{old('address',$data->address)}}" type="text" class="form-control" aria-required="true" aria-invalid="false" disabled >
+                                </div>
+                            </div>
+                          </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MAIN CONTENT-->
+
+
+@endsection
